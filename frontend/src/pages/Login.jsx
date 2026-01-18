@@ -14,7 +14,6 @@ export const Login = () => {
 
 const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const res = await fetch("http://localhost:4000/authtype/login", {
         method: "POST",
@@ -27,7 +26,7 @@ const handleSubmit = async (e) => {
 
       if (res.ok) {
         login(data.token, data.user.role);
-        toast.success("Login successful!");
+        alert("Login successful!");
         navigate("/dashboard"); 
       } else {
         toast.error(data.message || "Login failed");

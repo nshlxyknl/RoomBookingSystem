@@ -28,7 +28,7 @@ export const useCountdown = (expiresAt) => {
     };
 
     calculate();
-    const interval = setInterval(calculate, 60 * 1000); // update every minute
+    const interval = setInterval(calculate, 60 * 1000); 
 
     return () => clearInterval(interval);
   }, [expiresAt]);

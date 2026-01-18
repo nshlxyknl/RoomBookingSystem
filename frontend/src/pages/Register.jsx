@@ -26,7 +26,7 @@ const res= await fetch("http://localhost:4000/authtype/register",{
  console.log(data);
 
  if(res.ok){
-  toast.success("reg successful");
+  alert("reg successful");
   navigate(`/login`);
  }else {
         toast.error(data.message || "Reg failed");
@@ -35,7 +35,6 @@ const res= await fetch("http://localhost:4000/authtype/register",{
       console.error("Error registrating in:", err);
       toast.error("Something went wrong");
     }
-
   }
 
 

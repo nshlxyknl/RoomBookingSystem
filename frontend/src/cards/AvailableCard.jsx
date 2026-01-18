@@ -53,8 +53,8 @@ if (!time || !roomId || !roomtype || !price) {
         <h1 className='font-bold'>Room number {roomnum} </h1>
         <h1 className='font-bold'>Type {roomtype} </h1>
         <br></br>
-        <form onSubmit={handlepay} className='flex gap-6'>
-          <div>
+        <form onSubmit={handlepay} className='flex flex-col gap-6'>
+          <div >
             <Select value={time} onValueChange={(value)=> setTime(value)} >
                                                          <SelectTrigger >
                                                 <SelectValue placeholder="Select Time" /> 
@@ -66,7 +66,7 @@ if (!time || !roomId || !roomtype || !price) {
                                                        </Select>
           </div>
           <div>
-               <Button type="submit">Book</Button>
+               <Button type="submit" className={"w-50"}>Book</Button>
 
           </div>
 

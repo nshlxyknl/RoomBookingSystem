@@ -5,9 +5,11 @@ import React, { useEffect } from 'react'
 export const StaffDashboard = () => {
 
   const { all, fetchRooms } = useRoom()
-  useEffect(() => {
-    fetchRooms();
-  }, []);
+
+  // useEffect(() => {
+  //   fetchRooms();
+  // }, []);
+  
   return (
     <div className=" mt-20 overflow-hidden h-screen flex flex-col gap-8">
       <p className='text-2xl font-bold flex items-center justify-center mt-6'>My Rooms history</p>

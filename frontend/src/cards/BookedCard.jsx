@@ -11,22 +11,22 @@ export const BookedCard = ({room}) => {
 
 const {handlecheck}=useRoom()
 
-useEffect(() => {
-  const interval = setInterval(() => {
-  window.location.reload()
-  },60*1000);
+// useEffect(() => {
+//   const interval = setInterval(() => {
+//   window.location.reload()
+//   },60*1000);
 
-  return () => clearInterval(interval);
-}, [])
+//   return () => clearInterval(interval);
+// }, [])
 
 
   return (
-     <div className='min-w-[300px] h-80 '>
+     <div className='w-70 h-55  '>
       <div className='h-35'>
           <img
             src={`http://localhost:4000${room.image}`}
             alt={roomtype}
-            className="object-cover rounded-xl"
+            className="bg-cover h-35 rounded-xl"
           />
       </div>
       <div className='ml-2'>
@@ -35,10 +35,10 @@ useEffect(() => {
         <br></br>
         <div className='flex flex-col gap-3'>
           <div>
-      <p>Time left: {timeLeft} remaining</p>
+      <p> {timeLeft} remaining</p>
          </div>
           <div>
-            <Button onClick={()=>handlecheck(room)} className={"w-60"}>Checkout </Button>
+            <Button onClick={()=>handlecheck(room)} className={"w-50"}>Checkout </Button>
           </div>
         </div>
 
