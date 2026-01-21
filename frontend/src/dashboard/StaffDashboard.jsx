@@ -1,10 +1,11 @@
+import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { useRoom } from '@/context/RoomContext'
 import React, { useEffect } from 'react'
 
 export const StaffDashboard = () => {
 
-  const { all, fetchRooms } = useRoom()
+  const { all, fetchRooms, handlecheck } = useRoom()
 
   // useEffect(() => {
   //   fetchRooms();
@@ -18,9 +19,9 @@ export const StaffDashboard = () => {
           <TableRow>
             <TableHead>Room Number</TableHead>
             <TableHead>Status</TableHead>
+            <TableHead></TableHead>
             <TableHead>Checkin Time</TableHead>
             <TableHead>Checkout Time</TableHead>
-
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -30,6 +31,7 @@ export const StaffDashboard = () => {
               <TableRow key={room._id}>
                 <TableCell>{room.roomnum}</TableCell>
                 <TableCell> {room.status} </TableCell>
+                <TableCell> <Button onClick={()=>handlecheck(room)}>Checkout</Button> </TableCell>
                 <TableCell> {room.bookedAt ? new Date(room.bookedAt).toLocaleString() : "—"}</TableCell>
                 <TableCell>{room.expiresAt ? new Date(room.expiresAt).toLocaleString() : "—"}</TableCell>
               </TableRow>
