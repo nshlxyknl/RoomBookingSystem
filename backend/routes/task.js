@@ -6,7 +6,7 @@ const { uploadpdf,
         updateStatus,
  }=require(`../controllers/taskcontrollers`)
 const auth=require(`../middlewares/auth`)
-const checkRole = require("../middlewares/rolecheck")
+const checkRole = require("../middlewares/roleCheck")
 
 router.post(`/upload`,auth, checkRole("staff"),uploadpdf)
 router.get(`/all`,auth, getallpdf)
