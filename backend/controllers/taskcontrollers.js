@@ -140,8 +140,8 @@ exports.payc = async (req, res) => {
           quantity: 1,
         }
       ],
-      success_url: `http://localhost:5173/dashboard?payment=success`,
-      cancel_url: 'http://localhost:5173/dashboard?payment=cancel',
+      success_url: `https://room-booking-system-omega.vercel.app/dashboard?payment=success`,
+      cancel_url: 'https://room-booking-system-omega.vercel.app/dashboard?payment=cancel',
       metadata: {
         buyerId,
         roomId,
