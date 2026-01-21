@@ -4,19 +4,19 @@ import { Input } from '../components/ui/input'
 import { Button } from '../components/ui/button'
 import { Link, useNavigate} from 'react-router-dom'
 import { toast } from 'sonner'
+import { API_URL } from '@/config/api'
 
 export const Register = () => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
   const navigate = useNavigate();
 
   const handlereg= async (e) => {
   e.preventDefault();
 
 try{
-const res= await fetch("http://localhost:4000/authtype/register",{
+const res= await fetch(`${API_URL}/authtype/register`,{
   method: "POST",
   headers: { "Content-Type":"application/json"},
   body: JSON.stringify({ username, password  }),

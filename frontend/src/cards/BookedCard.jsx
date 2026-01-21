@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button'
 import React, { useEffect } from 'react'
 import { useCountdown } from '@/context/UseCountdown';
 import { useRoom } from '@/context/RoomContext';
+import { API_URL } from '@/config/api';
 
 export const BookedCard = ({room}) => {
 
@@ -24,7 +25,7 @@ const {handlecheck}=useRoom()
      <div className='w-70 h-55  '>
       <div className='h-35'>
           <img
-            src={`http://localhost:4000${room.image}`}
+            src={`${API_URL}${room.image}`}
             alt={roomtype}
             className="bg-cover h-35 rounded-xl"
           />

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import RoomContext from './RoomContext';
+import { API_URL } from '@/config/api';
 
 export const RoomProvider = ({children}) => {
 const [available, setAvailable]=useState()
@@ -10,7 +11,7 @@ const [all, setAll]=useState()
 
     const fetchRooms = async () => {
     try {
-      const res = await fetch("http://localhost:4000/tasktype/all", {
+      const res = await fetch(`${API_URL}/tasktype/all`, {
         method:"GET",
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("token")}`
@@ -35,7 +36,7 @@ const [all, setAll]=useState()
           const { _id: roomId, status } = room
 
 try {
- const res= await fetch(`http://localhost:4000/tasktype/update`,{
+ const res= await fetch(`${API_URL}/tasktype/update`,{
   method:"PUT",
   headers:{
     "Authorization":`Bearer ${localStorage.getItem('token')}`,

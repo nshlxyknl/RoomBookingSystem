@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog';
 import { Input } from '../ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { toast } from "sonner"
+import { API_URL } from '@/config/api';
 
 
 export const Navbar = () => {
@@ -30,7 +31,7 @@ const handleadd = async(e)=>{
     setLoading(true)
 
     try {
-      const res = await fetch("http://localhost:4000/tasktype/upload", {
+      const res = await fetch(`${API_URL}/tasktype/upload`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
