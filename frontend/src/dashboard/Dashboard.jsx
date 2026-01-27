@@ -4,6 +4,7 @@ import { Navigate, useLocation, useNavigate} from "react-router-dom";
 import { StaffDashboard } from "./StaffDashboard";
 import { UserDashboard } from "./UserDashboard";
 import { HomePage } from "@/pages/HomePage";
+import { toast } from "sonner";
 
 const Dashboard = () => {
   const role = localStorage.getItem("role");
@@ -18,12 +19,12 @@ const location = useLocation()
     if (status === "success") {
       toast.success("Payment successful");
       
-        navigate(`/dashboard`, { replace: true })
+        navigate("/dashboard", { replace: true })
     
     
     } else if (status === "cancel") {
       toast.error("Payment canceled");
-      navigate(`/dashboard`, { replace: true })
+      navigate("/dashboard", { replace: true })
     }
 
   }, [location.search ,  navigate]);
