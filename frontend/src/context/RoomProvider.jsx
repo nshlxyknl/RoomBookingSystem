@@ -8,7 +8,6 @@ const [booked, setBooked]=useState()
 const [all, setAll]=useState()
 
 
-
     const fetchRooms = async () => {
     try {
       const res = await fetch(`${API_URL}/tasktype/all`, {

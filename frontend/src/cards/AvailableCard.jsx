@@ -3,6 +3,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { API_URL } from '@/config/api'
 import { useRoom } from '@/context/RoomContext'
 import React, {  useState } from 'react'
+import { toast } from 'sonner'
 
 
 export const AvailableCard = ({room}) => {
@@ -16,7 +17,7 @@ export const AvailableCard = ({room}) => {
 e.preventDefault();
 
 if (!time || !roomId || !roomtype || !price) {
-      alert("Please select a time or missing booking info")
+      toast.error("Please select a time or missing booking info")
       return
     }
 

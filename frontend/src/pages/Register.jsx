@@ -28,7 +28,7 @@ const res= await fetch(`${API_URL}/authtype/register`,{
  console.log(data);
 
  if(res.ok){
-  alert("reg successful");
+  toast.success("reg successful");
   navigate(`/login`);
  }else {
         toast.error(data.message || "Reg failed");

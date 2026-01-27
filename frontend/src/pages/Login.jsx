@@ -29,7 +29,7 @@ const handleSubmit = async (e) => {
 
       if (res.ok) {
         login(data.token, data.user.role);
-        alert("Login successful!");
+        toast.success("Login successful!");
         navigate("/dashboard"); 
       } else {
         toast.error(data.message || "Login failed");

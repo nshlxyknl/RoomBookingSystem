@@ -44,14 +44,14 @@ const handleadd = async(e)=>{
       console.log(data);
 
       if (res.ok) {
-        alert("upload success");
+        toast.success("upload success");
         setOpenPop(false);
         setRoomnum()
         setRoomtype("")
         
 
       } else {
-        alert("upload failed")
+        toast.error("upload failed")
       }
 
     } catch (error) {
