@@ -112,6 +112,9 @@ exports.payc = async (req, res) => {
       price, status, roomnum
     });
 
+    const clientUrl = 
+process.env.CLIENT_URL || 'http://localhost:5173';
+
     if (!roomId || !time || !buyerId || !roomtype || !price) {
       return res.status(400).json({ message: "Missing booking info" });
     }
@@ -140,8 +143,8 @@ exports.payc = async (req, res) => {
           quantity: 1,
         }
       ],
-      success_url: `${CLIENT_URL}/dashboard?payment=success`,
-      cancel_url: `${CLIENT_URL}/dashboard?payment=cancel`,
+      success_url: `${clientUrl}/dashboard?payment=success`,
+      cancel_url: `${clientUrl}/dashboard?payment=cancel`,
       metadata: {
         buyerId,
         roomId,
