@@ -8,6 +8,7 @@ import { Footer } from './components/layout/Footer'
 import { ProtectedRoutes } from './routes/ProtectedRoutes'
 import { PublicRoutes } from './routes/PublicRoutes'
 import Dashboard from './dashboard/Dashboard'
+import { Toaster } from 'sonner'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
          <Route path='/dashboard' element={<ProtectedRoutes> <Dashboard/> </ProtectedRoutes>}/> 
       </Routes>
       <Footer/>
+               <Toaster position="top-center" reverseOrder={false} />
     </BrowserRouter>
 
   )
