@@ -17,7 +17,6 @@ export const UserDashboard = () => {
   return (
     <div className='h-screen w-70 flex gap-6 mt-30 ml-10 mb-20'>
     {
-      
       tab=="available"?(
         available?.length > 0 ? (
           available.map((room) => (

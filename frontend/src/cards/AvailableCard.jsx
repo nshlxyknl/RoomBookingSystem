@@ -68,6 +68,9 @@ if (!time || !roomId || !roomtype || !price) {
                                                        </Select>
           </div>
           <div>
+            
+          </div>
+          <div>
                <Button type="submit" className={"w-50"}>Book</Button>
 
           </div>

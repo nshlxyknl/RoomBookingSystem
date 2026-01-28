@@ -31,7 +31,11 @@ export const StaffDashboard = () => {
               <TableRow key={room._id}>
                 <TableCell>{room.roomnum}</TableCell>
                 <TableCell> {room.status} </TableCell>
-                <TableCell> <Button onClick={()=>handlecheck(room)}>Checkout</Button> </TableCell>
+                <TableCell> { room.status=="available"?
+                  <Button onClick={()=>handlecheck(room)}>Checkout</Button> :
+                  <Button disabled> Checkedout</Button> 
+                }
+                   </TableCell>
                 <TableCell> {room.bookedAt ? new Date(room.bookedAt).toLocaleString() : "—"}</TableCell>
                 <TableCell>{room.expiresAt ? new Date(room.expiresAt).toLocaleString() : "—"}</TableCell>
               </TableRow>
