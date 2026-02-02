@@ -10,10 +10,17 @@ exports.uploadpdf = async (req, res) => {
       return res.status(400).json({ message: "num and type are required" });
     }
 
+    const roomExists = await Task.findOne({ roomnum });
+        if (roomExists) {
+          return res.status(400).json({
+            message: "Room already exists",
+            suggestion: "Please choose a different room number",
+          });
+        }
+    
     const task = await Task.create({
       roomnum,
       roomtype,
-
     });
 
 

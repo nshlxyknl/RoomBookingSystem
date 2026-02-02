@@ -1,14 +1,15 @@
 const mongoose = require("mongoose")
 
 const salesItems = new mongoose.Schema({
-    buyerId: {type: mongoose.Schema.Types.ObjectId, ref:"User", },
-    roomnum: { type: mongoose.Schema.Types.ObjectId, ref: "Room", },
-    sellerId: { type: mongoose.Schema.Types.ObjectId, ref: "User", },
-    title: String,
-    price: Number,
-    quantity: Number,
-    status: {type: String, enum: ["pending", "approved", "rejected"], default: "pending" },
-    date: { type: Date, default: Date.now },
+    roomnum: { type: Number, required: true, unique: true, trim: true },
+    roomtype: {
+      type: String,
+      required: true,
+      enum: ["single", "deluxe", "double"]
+    },
+     status: { type: String, enum: ["available", "booked"], default: "available" },
+    expiresAt: {type: Date },
+    bookedAt: {type: Date }
 },{ timestamps: true }
 )
 

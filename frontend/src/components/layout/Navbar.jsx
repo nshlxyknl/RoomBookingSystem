@@ -11,18 +11,19 @@ import { API_URL } from '@/config/api';
 
 
 export const Navbar = () => {
-const { token, logout, role } = useAuth();
-const navigate = useNavigate()
-const {setTab}=usetab()
+  const { token, logout, role } = useAuth();
+  const navigate = useNavigate()
+  const { setTab } = usetab()
 
-const [openPop, setOpenPop] =useState(false)
-const [loading, setLoading] =useState(false)
-const [roomtype, setRoomtype] =useState("")
-const [roomnum, setRoomnum] =useState()
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [openPop, setOpenPop] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [roomtype, setRoomtype] = useState("")
+  const [roomnum, setRoomnum] = useState()
 
-const handleadd = async(e)=>{
+  const handleadd = async (e) => {
 
-   e.preventDefault();
+    e.preventDefault();
 
     if (!roomtype || !roomnum) {
       toast.error("Please fill all fields ");
@@ -35,9 +36,9 @@ const handleadd = async(e)=>{
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type":"application/json"
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify({roomnum,roomtype})
+        body: JSON.stringify({ roomnum, roomtype })
       })
 
       const data = await res.json();
@@ -48,7 +49,7 @@ const handleadd = async(e)=>{
         setOpenPop(false);
         setRoomnum()
         setRoomtype("")
-        
+
 
       } else {
         toast.error("upload failed")
@@ -72,7 +73,7 @@ const handleadd = async(e)=>{
   return (
     <div>
 
-      <header className="fixed top-0 left-0  z-50  w-full shadow-md bg-white dark:bg-gray-900">
+      <header className="fixed top-0 left-0  z-50  w-full  bg-white dark:bg-gray-900 shadow-md">
         <div className=" max-w-7xl mx-auto flex justify-between items-center px-4 py-4">
 
           {!token ? (
@@ -83,23 +84,81 @@ const handleadd = async(e)=>{
                 {
                   (role == 'user') ? (<>
 
-                    <div  className=" ml-15 text-2xl font-bold text-blue-600">
+                    {/* <div className=" ml-15 text-2xl font-bold text-blue-600">
                       MyHotel
                     </div>
                     <div className='flex items-center space-x-2 w-full ml-20'>
                       <div className="relative flex w-[500px] gap-10 justify-center ml-36  ">
-                       
-                        <button onClick={()=>{setTab('available')}} className='text-xl font-bold text-blue-600' >
-                        Available
+
+                        <button onClick={() => { setTab('available') }} className='text-xl font-bold text-blue-600' >
+                          Available
                         </button>
-                        <button onClick={()=>{setTab('booked')}} className='text-xl font-bold text-blue-600'>
-                        Booked
+                        <button onClick={() => { setTab('booked') }} className='text-xl font-bold text-blue-600'>
+                          Booked
                         </button>
                       </div>
-                     
-                      <Button variant="destructive"  onClick={handlelogout} className={"ml-50"} > Logout
-                </Button>
-                    </div>
+
+                      <Button variant="destructive" onClick={handlelogout} className={"ml-50"} > Logout
+                      </Button>
+                    </div> */}
+
+                    <div className="flex items-center justify-between w-full">
+
+  {/* Logo */}
+  <div className="text-2xl font-bold text-blue-600">
+    MyHotel
+  </div>
+
+  {/* Hamburger (mobile only) */}
+  <button
+    className="md:hidden text-2xl font-bold"
+    onClick={() => setMenuOpen(!menuOpen)}
+  >
+    ☰
+  </button>
+
+  {/* Menu */}
+  <div
+    className={`
+      absolute md:static top-full left-0 w-full md:w-auto
+      bg-white dark:bg-gray-900
+      md:flex items-center
+      ${menuOpen ? "flex flex-col p-4 gap-4" : "hidden md:flex"}
+    `}
+  >
+    <div className="flex md:items-center md:gap-10 md:justify-center">
+
+      <button
+        onClick={() => {
+          setTab("available")
+          setMenuOpen(false)
+        }}
+        className="text-xl font-bold text-blue-600"
+      >
+        Available
+      </button>
+
+      <button
+        onClick={() => {
+          setTab("booked")
+          setMenuOpen(false)
+        }}
+        className="text-xl font-bold text-blue-600"
+      >
+        Booked
+      </button>
+    </div>
+
+    <Button
+      variant="destructive"
+      onClick={handlelogout}
+      className="md:ml-6"
+    >
+      Logout
+    </Button>
+  </div>
+</div>
+
                   </>
                   )
                     : (<>
@@ -107,39 +166,39 @@ const handleadd = async(e)=>{
                         MyHotel
                       </div>
 
-                       <div className="flex ml-240 gap-12  ">
-        <Dialog open={openPop} onOpenChange={setOpenPop} >
-          <DialogTrigger asChild>
-            <Button onClick={() => setOpenPop(!openPop)}>Add Room</Button>
-          </DialogTrigger>
-          <DialogContent className="max-w-md p-6 rounded-2xl shadow-lg bg-white ">
-            <form onSubmit={handleadd} className="flex flex-col gap-4 mt-4">
-              <div className='flex gap-14'>
-              <Select value={roomtype} onValueChange={(value)=> setRoomtype(value)} >
-                                                         <SelectTrigger>
-                                                           <SelectValue placeholder="Room Type" />
-                                                         </SelectTrigger>
-                                                    <SelectContent>
-                                                     <SelectItem value="single">Single</SelectItem>
-                                                     <SelectItem value="double">Double</SelectItem>
-                                                     <SelectItem value="deluxe">Deluxe</SelectItem>
-                                                     </SelectContent>
-                                                       </Select>
-                    <Input placeholder="Room no." type="Number" value={roomnum}   onChange={(e) => setRoomnum(Number(e.target.value))} className={"w-30"}/> 
-                    </div>                                  
-              <div className="flex justify-between gap-2 mt-2">
-                <Button type="button" onClick={() => setOpenPop(false)}>Cancel</Button>
-                <Button type="submit" disabled={loading} >
-                  {loading ? "Uploading.." : "Add"}
-                </Button>
-              </div>
-            </form>
-          </DialogContent>
-        </Dialog>
-                       <Button variant="destructive" className="" onClick={handlelogout} > Logout
-                </Button>
-      </div>
-                </>
+                      <div className="flex ml-240 gap-12  ">
+                        <Dialog open={openPop} onOpenChange={setOpenPop} >
+                          <DialogTrigger asChild>
+                            <Button onClick={() => setOpenPop(!openPop)}>Add Room</Button>
+                          </DialogTrigger>
+                          <DialogContent className="max-w-md p-6 rounded-2xl shadow-lg bg-white ">
+                            <form onSubmit={handleadd} className="flex flex-col gap-4 mt-4">
+                              <div className='flex gap-14'>
+                                <Select value={roomtype} onValueChange={(value) => setRoomtype(value)} >
+                                  <SelectTrigger>
+                                    <SelectValue placeholder="Room Type" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="single">Single</SelectItem>
+                                    <SelectItem value="double">Double</SelectItem>
+                                    <SelectItem value="deluxe">Deluxe</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                                <Input placeholder="Room no." type="Number" value={roomnum} onChange={(e) => setRoomnum(Number(e.target.value))} className={"w-30"} />
+                              </div>
+                              <div className="flex justify-between gap-2 mt-2">
+                                <Button type="button" onClick={() => setOpenPop(false)}>Cancel</Button>
+                                <Button type="submit" disabled={loading} >
+                                  {loading ? "Uploading.." : "Add"}
+                                </Button>
+                              </div>
+                            </form>
+                          </DialogContent>
+                        </Dialog>
+                        <Button variant="destructive" className="" onClick={handlelogout} > Logout
+                        </Button>
+                      </div>
+                    </>
                     )
                 }
               </nav>
