@@ -83,13 +83,11 @@ export const Navbar = () => {
               <nav className="hidden md:flex space-x-6">
                 {
                   (role == 'user') ? (<>
-
-                    {/* <div className=" ml-15 text-2xl font-bold text-blue-600">
+                    <div className=" ml-15 text-2xl font-bold text-blue-600 ">
                       MyHotel
                     </div>
                     <div className='flex items-center space-x-2 w-full ml-20'>
-                      <div className="relative flex w-[500px] gap-10 justify-center ml-36  ">
-
+                      <div className="relative flex w-125 gap-10 justify-center ml-36 ">
                         <button onClick={() => { setTab('available') }} className='text-xl font-bold text-blue-600' >
                           Available
                         </button>
@@ -100,17 +98,10 @@ export const Navbar = () => {
 
                       <Button variant="destructive" onClick={handlelogout} className={"ml-50"} > Logout
                       </Button>
-                    </div> */}
+                    </div>
 
-                    <div className="flex items-center justify-between w-full">
-
-  {/* Logo */}
-  <div className="text-2xl font-bold text-blue-600">
-    MyHotel
-  </div>
-
-  {/* Hamburger (mobile only) */}
-  <button
+ <div>
+                    <button
     className="md:hidden text-2xl font-bold"
     onClick={() => setMenuOpen(!menuOpen)}
   >
@@ -157,7 +148,12 @@ export const Navbar = () => {
       Logout
     </Button>
   </div>
-</div>
+</div> 
+
+
+  
+
+  
 
                   </>
                   )
