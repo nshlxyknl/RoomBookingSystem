@@ -80,14 +80,18 @@ export const Navbar = () => {
             <></>
           )
             : (
-              <nav className="flex items-center justify-between w-full"> //space-x-6
+              <nav className="flex items-center justify-between w-full">
+                 {/* //space-x-6 */}
                 {
                   (role == 'user') ? (<>
-                    <div className="  text-2xl font-bold text-blue-600 "> //ml-15
+                    <div className="  text-2xl font-bold text-blue-600 "> 
+                      {/* //ml-15 */}
                       MyHotel
                     </div>
-                    <div className='flex items-center space-x-2 w-full '> //ml-20
-                      <div className="relative flex w-125 gap-10 justify-center "> //ml-36
+                    <div className='flex items-center space-x-2 w-full '> 
+                      {/* //ml-20 */}
+                      <div className="relative flex w-125 gap-10 justify-center "> 
+                        {/* //ml-36 */}
 
 <button
     className="md:hidden text-2xl font-bold"
