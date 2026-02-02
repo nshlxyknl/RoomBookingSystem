@@ -80,7 +80,7 @@ export const Navbar = () => {
             <></>
           )
             : (
-              <nav className="hidden md:flex space-x-6">
+              <nav className="flex items-center justify-between space-x-6">
                 {
                   (role == 'user') ? (<>
                     <div className=" ml-15 text-2xl font-bold text-blue-600 ">
