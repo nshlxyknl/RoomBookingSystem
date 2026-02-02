@@ -88,6 +88,22 @@ export const Navbar = () => {
                     </div>
                     <div className='flex items-center space-x-2 w-full ml-20'>
                       <div className="relative flex w-125 gap-10 justify-center ml-36 ">
+
+<button
+    className="md:hidden text-2xl font-bold"
+    onClick={() => setMenuOpen(!menuOpen)}
+  >
+    ☰
+  </button>
+  <div
+    className={`
+      absolute md:static top-full left-0 w-full md:w-auto
+      bg-white dark:bg-gray-900
+      md:flex items-center
+      ${menuOpen ? "flex flex-col p-4 gap-4" : "hidden md:flex"}
+    `}
+  >
+                        
                         <button onClick={() => { setTab('available') }} className='text-xl font-bold text-blue-600' >
                           Available
                         </button>
@@ -99,8 +115,9 @@ export const Navbar = () => {
                       <Button variant="destructive" onClick={handlelogout} className={"ml-50"} > Logout
                       </Button>
                     </div>
+                    </div>
 
- <div>
+ {/* <div>
                     <button
     className="md:hidden text-2xl font-bold"
     onClick={() => setMenuOpen(!menuOpen)}
@@ -108,7 +125,6 @@ export const Navbar = () => {
     ☰
   </button>
 
-  {/* Menu */}
   <div
     className={`
       absolute md:static top-full left-0 w-full md:w-auto
@@ -118,37 +134,11 @@ export const Navbar = () => {
     `}
   >
     <div className="flex md:items-center md:gap-10 md:justify-center">
-
-      <button
-        onClick={() => {
-          setTab("available")
-          setMenuOpen(false)
-        }}
-        className="text-xl font-bold text-blue-600"
-      >
-        Available
-      </button>
-
-      <button
-        onClick={() => {
-          setTab("booked")
-          setMenuOpen(false)
-        }}
-        className="text-xl font-bold text-blue-600"
-      >
-        Booked
-      </button>
     </div>
 
-    <Button
-      variant="destructive"
-      onClick={handlelogout}
-      className="md:ml-6"
-    >
-      Logout
-    </Button>
+    
   </div>
-</div> 
+</div>  */}
 
 
   
