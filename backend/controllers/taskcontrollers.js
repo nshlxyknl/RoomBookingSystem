@@ -82,7 +82,7 @@ exports.updateStatus = async (req, res) => {
       const days = time === "aday" ? 1 : 7;
 
 
-      update.buyer = new mongoose.Types.ObjectId(req.user.userId);
+      update.buyer = req.user.userId;
       update.bookedAt = new Date();
       update.expiresAt = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
     } else {
