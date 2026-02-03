@@ -28,7 +28,7 @@ const handleSubmit = async (e) => {
       console.log("Response from backend:", data);
 
       if (res.ok) {
-        login(data.token, data.user.role, data.user._id);
+        login(data.token, data.user.role, data.user.id);
         toast.success("Login successful!");
         navigate("/dashboard"); 
       } else {
