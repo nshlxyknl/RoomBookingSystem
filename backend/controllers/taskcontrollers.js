@@ -66,12 +66,12 @@ exports.updateStatus = async (req, res) => {
     console.log("Bookee data:", {
 
       roomId,
-      time
+      time,
+            userId: req.user.userId
+
     });
 
-    const room = await Task.findById(
-      roomId
-    );
+    const room = await Task.findById(roomId);
     const newStatus = room.status === "available" ? "booked" : "available";
 
 
@@ -82,7 +82,7 @@ exports.updateStatus = async (req, res) => {
       const days = time === "aday" ? 1 : 7;
 
 
-      update.buyer = req.user.userId;
+      update.buyer = req.user.userId; //new mongoose.Types.ObjectId(req.user.userId);
       update.bookedAt = new Date();
       update.expiresAt = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
     } else {
@@ -95,7 +95,7 @@ exports.updateStatus = async (req, res) => {
       roomId,
       update,
       { new: true }
-    );
+    ).populate('buyer', 'username');;
 
     const message = newStatus === "booked" ? "Room booked successfully" : "Room is now available";
 
@@ -147,7 +147,7 @@ exports.payc = async (req, res) => {
             product_data: {
               name: `${roomtype} room no. ${roomnum} booking`
             },
-            unit_amount: finalPrice * 100,
+            unit_amount: finalPrice,
           },
           quantity: 1,
         }
