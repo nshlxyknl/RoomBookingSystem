@@ -54,7 +54,7 @@ if (!time || !roomId || !roomtype || !price) {
       <div className='flex flex-col flex-1 p-4 gap-4'>
         <h1 className='font-bold text-lg'>Room number {roomnum} </h1>
           <p className='text-gray-600'>Type: {roomtype}</p>
-                  <p className='text-blue-600 font-semibold'>$ {price}</p>
+                  <p className='text-blue-600 font-semibold'>$ {price/100}</p>
 
         <br></br>
           <div className='flex-1' >
