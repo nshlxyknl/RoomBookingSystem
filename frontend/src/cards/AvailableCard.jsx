@@ -56,7 +56,6 @@ if (!time || !roomId || !roomtype || !price) {
           <p className='text-gray-600'>Type: {roomtype}</p>
                   <p className='text-blue-600 font-semibold'>$ {price/100}</p>
 
-        <br></br>
           <div className='flex-1' >
             <Select value={time} onValueChange={(value)=> setTime(value)} >
                                                          <SelectTrigger className={'w-full'} >
