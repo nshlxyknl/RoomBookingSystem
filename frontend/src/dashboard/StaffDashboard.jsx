@@ -2,6 +2,8 @@ import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { useRoom } from '@/context/RoomContext'
 import React, { useEffect } from 'react'
+import { Badge } from "@/components/ui/badge"
+import { toast } from 'sonner'
 
 export const StaffDashboard = () => {
 
@@ -10,10 +12,10 @@ export const StaffDashboard = () => {
   // useEffect(() => {
   //   fetchRooms();
   // }, []);
-  
+
   return (
     <div className=" mt-20 overflow-hidden h-screen flex flex-col gap-8">
-      <p className='text-2xl font-bold flex items-center justify-center mt-6'>My Rooms history</p>
+      <p className='text-2xl font-bold flex items-center justify-center mt-6'>Booked Rooms</p>
       <Table>
         <TableHeader>
           <TableRow>
@@ -27,15 +29,17 @@ export const StaffDashboard = () => {
         <TableBody>
 
           {all && all.length > 0 ? (
-            all.map((room) => (
+            all
+            .filter((room) => room.status === "booked")
+            .map((room) => (
               <TableRow key={room._id}>
                 <TableCell>{room.roomnum}</TableCell>
                 <TableCell> {room.status} </TableCell>
-                <TableCell> { room.status=="available"?
-                  <Button onClick={()=>handlecheck(room)}>Checkout</Button> :
-                  <Button disabled> Checkedout</Button> 
-                }
-                   </TableCell>
+                <TableCell> {room.status == "booked" ?
+                  <Button onClick={async() => {
+                   await handlecheck(room);   
+                   toast.success(`Room number ${room.roomnum} checkedout`)}}>Checkout</Button> : "—"}
+                </TableCell>
                 <TableCell> {room.bookedAt ? new Date(room.bookedAt).toLocaleString() : "—"}</TableCell>
                 <TableCell>{room.expiresAt ? new Date(room.expiresAt).toLocaleString() : "—"}</TableCell>
               </TableRow>

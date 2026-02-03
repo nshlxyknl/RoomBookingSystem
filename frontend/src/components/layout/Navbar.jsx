@@ -80,69 +80,67 @@ export const Navbar = () => {
             <></>
           )
             : (
-              <nav className="flex items-center justify-between w-full">
-                 {/* //space-x-6 */}
-                {
-                  (role == 'user') ? (<>
-                    <div className="  text-2xl font-bold text-blue-600 "> 
-                      {/* //ml-15 */}
+              <nav className="flex items-center justify-between w-full  ">
+                    <div className="  text-2xl font-bold text-blue-600 shrink-0 "> 
                       MyHotel
                     </div>
-                    <div className='flex items-center space-x-2 w-full '> 
-                      {/* //ml-20 */}
-                      <div className="relative flex w-125 gap-10 justify-center "> 
-                        {/* //ml-36 */}
+                {
+                  (role == 'user') ? (<>
+                    <div className="hidden md:flex items-center gap-8">
+              <button 
+                onClick={() => { setTab('available'); setMenuOpen(false); }} 
+                className='text-lg font-semibold text-blue-600 hover:text-blue-800 transition'
+              >
+                Available
+              </button>
+              <button 
+                onClick={() => { setTab('booked'); setMenuOpen(false); }} 
+                className='text-lg font-semibold text-blue-600 hover:text-blue-800 transition'
+              >
+                Booked
+              </button>
+            </div>
 
-<button
-    className="md:hidden text-2xl font-bold"
-    onClick={() => setMenuOpen(!menuOpen)}
-  >
-    ☰
-  </button>
-  <div
-    className={`
-      absolute md:static top-full left-0 w-full md:w-auto
-      bg-white dark:bg-gray-900
-      md:flex items-center
-      ${menuOpen ? "flex flex-col p-4 gap-4" : "hidden md:flex"}
-    `}
-  >
-                        
-                        <button onClick={() => { setTab('available') }} className='text-xl font-bold text-blue-600' >
-                          Available
-                        </button>
-                        <button onClick={() => { setTab('booked') }} className='text-xl font-bold text-blue-600'>
-                          Booked
-                        </button>
+            <Button 
+              variant="destructive" 
+              onClick={handlelogout}
+              className="hidden md:flex"
+            >
+              Logout
+            </Button>
 
-                      </div>
-                      <Button variant="destructive" onClick={handlelogout} className={"ml-50"} > Logout
-                      </Button>
-                    </div>
-                    </div>
+            <button
+              className="md:hidden text-2xl font-bold text-gray-600 dark:text-gray-300"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              ☰
+            </button>
 
- {/* <div>
-                    <button
-    className="md:hidden text-2xl font-bold"
-    onClick={() => setMenuOpen(!menuOpen)}
-  >
-    ☰
-  </button>
-
-  <div
-    className={`
-      absolute md:static top-full left-0 w-full md:w-auto
-      bg-white dark:bg-gray-900
-      md:flex items-center
-      ${menuOpen ? "flex flex-col p-4 gap-4" : "hidden md:flex"}
-    `}
-  >
-    <div className="flex md:items-center md:gap-10 md:justify-center">
-    </div>
-
-    
-  </div>
-</div>  */}
+            {menuOpen && (
+              <div className="absolute top-full left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 md:hidden">
+                <div className="flex flex-col gap-4 p-4">
+                  <button 
+                    onClick={() => { setTab('available'); setMenuOpen(false); }} 
+                    className='text-lg font-semibold text-blue-600 hover:text-blue-800 py-2'
+                  >
+                    Available
+                  </button>
+                  <button 
+                    onClick={() => { setTab('booked'); setMenuOpen(false); }} 
+                    className='text-lg font-semibold text-blue-600 hover:text-blue-800 py-2'
+                  >
+                    Booked
+                  </button>
+                  <Button 
+                    variant="destructive" 
+                    onClick={handlelogout}
+                    className="w-full"
+                  >
+                    Logout
+                  </Button>
+                </div>
+              </div>
+            )}
 
 
   
@@ -152,42 +150,72 @@ export const Navbar = () => {
                   </>
                   )
                     : (<>
-                      <div className="text-xl font-bold text-blue-600">
-                        MyHotel
-                      </div>
 
-                      <div className="flex ml-240 gap-12  ">
-                        <Dialog open={openPop} onOpenChange={setOpenPop} >
-                          <DialogTrigger asChild>
-                            <Button onClick={() => setOpenPop(!openPop)}>Add Room</Button>
-                          </DialogTrigger>
-                          <DialogContent className="max-w-md p-6 rounded-2xl shadow-lg bg-white ">
-                            <form onSubmit={handleadd} className="flex flex-col gap-4 mt-4">
-                              <div className='flex gap-14'>
-                                <Select value={roomtype} onValueChange={(value) => setRoomtype(value)} >
-                                  <SelectTrigger>
-                                    <SelectValue placeholder="Room Type" />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    <SelectItem value="single">Single</SelectItem>
-                                    <SelectItem value="double">Double</SelectItem>
-                                    <SelectItem value="deluxe">Deluxe</SelectItem>
-                                  </SelectContent>
-                                </Select>
-                                <Input placeholder="Room no." type="Number" value={roomnum} onChange={(e) => setRoomnum(Number(e.target.value))} className={"w-30"} />
-                              </div>
-                              <div className="flex justify-between gap-2 mt-2">
-                                <Button type="button" onClick={() => setOpenPop(false)}>Cancel</Button>
-                                <Button type="submit" disabled={loading} >
-                                  {loading ? "Uploading.." : "Add"}
-                                </Button>
-                              </div>
-                            </form>
-                          </DialogContent>
-                        </Dialog>
-                        <Button variant="destructive" className="" onClick={handlelogout} > Logout
-                        </Button>
-                      </div>
+            <Dialog open={openPop} onOpenChange={setOpenPop}>
+              <DialogTrigger asChild>
+                <Button onClick={() => setOpenPop(!openPop)}>Add Room</Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-md p-6 rounded-2xl shadow-lg bg-white">
+                <form onSubmit={handleadd} className="flex flex-col gap-4 mt-4">
+                  <div className='flex flex-col md:flex-row gap-4 md:gap-2'>
+                    <Select value={roomtype} onValueChange={(value) => setRoomtype(value)}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Room Type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="single">Single</SelectItem>
+                        <SelectItem value="double">Double</SelectItem>
+                        <SelectItem value="deluxe">Deluxe</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Input 
+                      placeholder="Room no." 
+                      type="number" 
+                      value={roomnum} 
+                      onChange={(e) => setRoomnum(Number(e.target.value))} 
+                      className="w-full md:w-32"
+                    />
+                  </div>
+                  <div className="flex justify-between gap-2 mt-2">
+                    <Button type="button" onClick={() => setOpenPop(false)}>Cancel</Button>
+                    <Button type="submit" disabled={loading}>
+                      {loading ? "Uploading..." : "Add"}
+                    </Button>
+                  </div>
+                </form>
+              </DialogContent>
+            </Dialog>
+
+            <Button 
+              variant="destructive" 
+              onClick={handlelogout}
+              className="hidden md:flex"
+            >
+              Logout
+            </Button>
+
+            {/* Hamburger Menu - Mobile */}
+            <button
+              className="md:hidden text-2xl font-bold text-gray-600 dark:text-gray-300"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              ☰
+            </button>
+
+            {/* Mobile Menu */}
+            {menuOpen && (
+              <div className="absolute top-full left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 md:hidden">
+                <div className="flex flex-col gap-3 p-4">
+                  <Button 
+                    variant="destructive" 
+                    onClick={handlelogout}
+                    className="w-full"
+                  >
+                    Logout
+                  </Button>
+                </div>
+              </div>
+            )}
                     </>
                     )
                 }

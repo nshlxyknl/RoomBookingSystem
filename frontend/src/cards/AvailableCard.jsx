@@ -43,23 +43,24 @@ if (!time || !roomId || !roomtype || !price) {
   }
 
   return (
-     <div className='w-70 h-55 '>
-      <div className='h-35  '>
+     <div className='flex flex-col h-full bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow'>
+      <div className='w-full h-full overflow-hidden rounded-t-lg'>
           <img
             src={`${API_URL}${room.image}`}
             alt={roomtype}
-            className="bg-cover h-35 rounded-xl"
+            className="w-full h-full object-cover"
           />
-      </div>
-      <div>
-        <h1 className='font-bold'>Room number {roomnum} </h1>
-        <h1 className='font-bold'>Type {roomtype} </h1>
+      </div >
+      <div className='flex flex-col flex-1 p-4 gap-4'>
+        <h1 className='font-bold text-lg'>Room number {roomnum} </h1>
+          <p className='text-gray-600'>Type: {roomtype}</p>
+                  <p className='text-blue-600 font-semibold'>Rs. {price}</p>
+
         <br></br>
-        <form onSubmit={handlepay} className='flex flex-col gap-6'>
-          <div >
+          <div className='flex-1' >
             <Select value={time} onValueChange={(value)=> setTime(value)} >
-                                                         <SelectTrigger >
-                                                <SelectValue placeholder="Select Time" /> 
+                                                         <SelectTrigger className={'w-full'} >
+                                                <SelectValue placeholder="Select Time " /> 
                                                          </SelectTrigger>
                                                     <SelectContent>
                                                      <SelectItem value="aday">1 day</SelectItem>
@@ -70,8 +71,9 @@ if (!time || !roomId || !roomtype || !price) {
           <div>
             
           </div>
+        <form onSubmit={handlepay} className='w-full'>
           <div>
-               <Button type="submit" className={"w-50"}>Book</Button>
+               <Button type="submit" className={"w-full"}>Book</Button>
 
           </div>
 

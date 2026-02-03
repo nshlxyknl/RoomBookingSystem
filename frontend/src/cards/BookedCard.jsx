@@ -22,15 +22,15 @@ const {handlecheck}=useRoom()
 
 
   return (
-     <div className='w-70 h-55  '>
-      <div className='h-35'>
+     <div className='flex flex-col h-full bg-white rounded-lg shadow-md overflow-hidden '>
+      <div className='w-full h-48 overflow-hidden rounded-t-lg'>
           <img
             src={`${API_URL}${room.image}`}
             alt={roomtype}
-            className="bg-cover h-35 rounded-xl"
+            className="w-full h-full object-cover"
           />
       </div>
-      <div className='ml-2'>
+      <div className='flex flex-col flex-1 p-4 gap-3'>
         <h1 className='font-bold'>Room number {roomnum} </h1>
         <h1 className='font-bold'>Type {roomtype}</h1>
         <br></br>
