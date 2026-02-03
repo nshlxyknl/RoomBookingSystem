@@ -34,12 +34,12 @@ const {handlecheck}=useRoom()
         <h1 className='font-bold'>Room number {roomnum} </h1>
         <h1 className='font-bold'>Type {roomtype}</h1>
         <br></br>
-        <div className='flex flex-col gap-3'>
-          <div>
-      <p> {timeLeft} remaining</p>
+        <div >
+          <div className='text-sm text-orange-600 font-semibold' >
+      <p> ⏱️ {timeLeft} remaining</p>
          </div>
           <div>
-            <Button onClick={()=>handlecheck(room)} className={"w-50"}>Checkout </Button>
+            <Button onClick={()=>handlecheck(room)} className={"w-full"}>Checkout </Button>
           </div>
         </div>
 
