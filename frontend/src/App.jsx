@@ -22,7 +22,7 @@ function App() {
          <Route path='/dashboard' element={<ProtectedRoutes> <Dashboard/> </ProtectedRoutes>}/> 
       </Routes>
       <Footer/>
-               <Toaster position="top-center" reverseOrder={false} />
+               <Toaster position="top-right" reverseOrder={false} />
     </BrowserRouter>
 
   )
