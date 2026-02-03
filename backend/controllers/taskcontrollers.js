@@ -39,7 +39,7 @@ exports.uploadpdf = async (req, res) => {
 
 exports.getallpdf = async (req, res) => {
   try {
-    const rooms = await Task.find()
+    const rooms = await Task.find().populate('buyer','username')
       .sort({ createdAt: -1 });
 
           console.log("Rooms with buyer:", rooms); 
@@ -94,7 +94,7 @@ exports.updateStatus = async (req, res) => {
       roomId,
       update,
       { new: true }
-    ).populate('buyer', 'username');;
+    ).populate('buyer', 'username');
 
     const message = newStatus === "booked" ? "Room booked successfully" : "Room is now available";
 
