@@ -40,7 +40,6 @@ exports.uploadpdf = async (req, res) => {
 exports.getallpdf = async (req, res) => {
   try {
     const rooms = await Task.find()
-      .populate("buyer","username")
       .sort({ createdAt: -1 });
 
           console.log("Rooms with buyer:", rooms); 
