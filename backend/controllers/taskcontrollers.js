@@ -141,7 +141,7 @@ process.env.CLIENT_URL || 'http://localhost:5173';
       line_items: [
         {
           price_data: {
-            currency: 'usd',
+            currency: 'npr',
             product_data: {
               name: `${roomtype} room no. ${roomnum} booking`
             },
