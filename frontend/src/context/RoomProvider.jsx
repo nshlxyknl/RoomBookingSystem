@@ -1,11 +1,32 @@
 import React, { useState } from 'react'
 import RoomContext from './RoomContext';
 import { API_URL } from '@/config/api';
+import { useCountdown } from './UseCountdown';
 
 export const RoomProvider = ({children}) => {
 const [available, setAvailable]=useState()
 const [booked, setBooked]=useState()
 const [all, setAll]=useState()
+
+
+const getTimeLeft = (expiresAt) => {
+  if (!expiresAt) return "—"
+
+  const diff = new Date(expiresAt) - Date.now()
+  if (diff <= 0) return "Expired"
+
+   const totalMinutes = Math.floor(diff / (1000 * 60));
+      const days = Math.floor(totalMinutes / (60 * 24));
+      const hours = Math.floor((totalMinutes % (60 * 24)) / 60);
+      const minutes = totalMinutes % 60;
+
+      let result = "";
+      if (days > 0) result += `${days}d `;
+      if (hours > 0) result += `${hours}h `;
+      result += `${minutes}m`;
+
+  return result
+}
 
 
     const fetchRooms = async () => {
@@ -20,6 +41,7 @@ const [all, setAll]=useState()
       setAll(data.rooms)
       setAvailable(data.rooms.filter(room => room.status === 'available'));
       setBooked(data.rooms.filter(room => room.status === 'booked'));
+
     } catch (error) {
       console.error("Error fetching rooms:", error);
     }
@@ -57,7 +79,7 @@ try {
 }
 
   return (
-    <RoomContext.Provider value={{available,booked,setAvailable,setBooked,all,setAll, fetchRooms, handlecheck}}>
+    <RoomContext.Provider value={{available,booked,setAvailable,setBooked,all,setAll, fetchRooms, handlecheck, getTimeLeft}}>
         {children}
     </RoomContext.Provider>
   )

@@ -2,16 +2,16 @@ import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { useRoom } from '@/context/RoomContext'
 import React, { useEffect } from 'react'
-import { Badge } from "@/components/ui/badge"
 import { toast } from 'sonner'
 
 export const StaffDashboard = () => {
 
-  const { all, fetchRooms, handlecheck } = useRoom()
+  const { booked, fetchRooms, handlecheck, getTimeLeft } = useRoom()
+  
 
-  // useEffect(() => {
-  //   fetchRooms();
-  // }, []);
+  useEffect(() => {
+    fetchRooms();
+  }, []);
 
   return (
     <div className=" mt-20 overflow-hidden h-screen flex flex-col gap-8">
@@ -23,14 +23,13 @@ export const StaffDashboard = () => {
             <TableHead>Status</TableHead>
             <TableHead></TableHead>
             <TableHead>Checkin Time</TableHead>
-            <TableHead>Checkout Time</TableHead>
+            <TableHead>Remaining Time</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
 
-          {all && all.length > 0 ? (
-            all
-            .filter((room) => room.status === "booked")
+          {booked && booked.length > 0 ? (
+            booked
             .map((room) => (
               <TableRow key={room._id}>
                 <TableCell>{room.roomnum}</TableCell>
@@ -41,7 +40,7 @@ export const StaffDashboard = () => {
                    toast.success(`Room number ${room.roomnum} checkedout`)}}>Checkout</Button> : "—"}
                 </TableCell>
                 <TableCell> {room.bookedAt ? new Date(room.bookedAt).toLocaleString() : "—"}</TableCell>
-                <TableCell>{room.expiresAt ? new Date(room.expiresAt).toLocaleString() : "—"}</TableCell>
+                <TableCell>⏱️{getTimeLeft(room.expiresAt)} remaining</TableCell>
               </TableRow>
             ))
           ) : (
