@@ -41,6 +41,7 @@ const getTimeLeft = (expiresAt) => {
       setAll(data.rooms)
       setAvailable(data.rooms.filter(room => room.status === 'available'));
       setBooked(data.rooms.filter(room => room.status === 'booked'));
+    console.log("Rooms with buyer:", data);
 
     } catch (error) {
       console.error("Error fetching rooms:", error);

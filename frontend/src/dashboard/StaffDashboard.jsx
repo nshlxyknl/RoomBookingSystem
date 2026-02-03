@@ -21,7 +21,8 @@ export const StaffDashboard = () => {
           <TableRow>
             <TableHead>Room Number</TableHead>
             <TableHead>Status</TableHead>
-            <TableHead></TableHead>
+            <TableHead>Booked by</TableHead>
+            <TableHead>Change status</TableHead>
             <TableHead>Checkin Time</TableHead>
             <TableHead>Remaining Time</TableHead>
           </TableRow>
@@ -34,6 +35,7 @@ export const StaffDashboard = () => {
               <TableRow key={room._id}>
                 <TableCell>{room.roomnum}</TableCell>
                 <TableCell> {room.status} </TableCell>
+                <TableCell> {room.buyer?.username} </TableCell>
                 <TableCell> {room.status == "booked" ?
                   <Button onClick={async() => {
                    await handlecheck(room);   

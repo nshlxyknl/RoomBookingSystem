@@ -11,13 +11,13 @@ exports.uploadpdf = async (req, res) => {
     }
 
     const roomExists = await Task.findOne({ roomnum });
-        if (roomExists) {
-          return res.status(400).json({
-            message: "Room already exists",
-            suggestion: "Please choose a different room number",
-          });
-        }
-    
+    if (roomExists) {
+      return res.status(400).json({
+        message: "Room already exists",
+        suggestion: "Please choose a different room number",
+      });
+    }
+
     const task = await Task.create({
       roomnum,
       roomtype,
@@ -40,7 +40,11 @@ exports.uploadpdf = async (req, res) => {
 exports.getallpdf = async (req, res) => {
   try {
     const rooms = await Task.find()
+      .populate("buyer","username")
       .sort({ createdAt: -1 });
+
+          console.log("Rooms with buyer:", rooms); 
+
 
     res.json({
       rooms,
@@ -54,8 +58,6 @@ exports.getallpdf = async (req, res) => {
     });
   }
 };
-
-
 
 
 exports.updateStatus = async (req, res) => {
@@ -80,7 +82,7 @@ exports.updateStatus = async (req, res) => {
       const days = time === "aday" ? 1 : 7;
 
 
-      update.buyer = req.user.userId;
+      update.buyer = new mongoose.Types.ObjectId(req.user.userId);
       update.bookedAt = new Date();
       update.expiresAt = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
     } else {
@@ -119,8 +121,8 @@ exports.payc = async (req, res) => {
       price, status, roomnum
     });
 
-    const clientUrl = 
-process.env.CLIENT_URL || 'http://localhost:5173';
+    const clientUrl =
+      process.env.CLIENT_URL || 'http://localhost:5173';
 
     if (!roomId || !time || !buyerId || !roomtype || !price) {
       return res.status(400).json({ message: "Missing booking info" });
