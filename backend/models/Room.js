@@ -22,9 +22,9 @@ const roomSchema = new mongoose.Schema(
 roomSchema.pre('save', function (next) {
   if (this.isNew || this.isModified('roomtype')) {
     const priceMap = {
-      single: 1000,
-      deluxe: 2000,
-      double: 1500
+      single: 10,
+      deluxe: 20,
+      double: 15
     };
     const imageMap = {
       single: "/images/single.jpg",
