@@ -45,8 +45,10 @@ exports.google = async (req, res) => {
       user,
       needsRole: !user.role,
     });
+      console.log("Ticket verified:", ticket.getPayload());
+
   } catch (err) {
-    console.error(err);
-    res.status(401).json({ message: "Google authentication failed" });
+  console.error("Google verifyIdToken failed:", err);
+    res.status(401).json({ message: "Google authentication failed", error: err.message });
   }
 };
