@@ -46,6 +46,13 @@ const handleSubmit = async (e) => {
 
   const handleoauth = async (credentialResponse) => {
     try {
+      if (!credentialResponse?.credential) {
+        toast.error("No Google credential received. Please try again.");
+        return;
+      }
+
+      console.log("Sending Google token to backend...");
+      
       const res = await fetch(`${API_URL}/api/auth/google`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -53,6 +60,7 @@ const handleSubmit = async (e) => {
           token: credentialResponse.credential
         })
       });
+      
       const data = await res.json();
 
       if (res.ok) {
@@ -60,12 +68,13 @@ const handleSubmit = async (e) => {
         toast.success("Login successful!");
         navigate("/dashboard");
       } else {
+        console.error("Backend error:", data);
         toast.error(data.message || "Login failed");
       }
 
     } catch (error) {
-      console.log(error)
-      toast.error("Something went wrong");
+      console.error("OAuth error:", error);
+      toast.error("Network error. Please check your connection and try again.");
 
     }
 
