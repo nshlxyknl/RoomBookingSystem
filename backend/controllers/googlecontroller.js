@@ -40,15 +40,14 @@ exports.google = async (req, res) => {
       { expiresIn: "7d" }
     );
 
-    res.json({
+   return res.json({
       token: jwtToken,
       user,
       needsRole: !user.role,
     });
-      console.log("Ticket verified:", ticket.getPayload());
 
   } catch (err) {
   console.error("Google verifyIdToken failed:", err);
-    res.status(401).json({ message: "Google authentication failed", error: err.message });
+   return res.status(401).json({ message: "Google authentication failed", error: err.message });
   }
 };
