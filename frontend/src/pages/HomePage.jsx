@@ -11,7 +11,7 @@ export const HomePage = () => {
           Get started by signing in to your account or create a new one to begin your journey with us.
         </p>
         <div className="flex justify-center gap-4">
-          <Link to="/register">
+          <Link to="/login">
             <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
               Get Started
             </Button>

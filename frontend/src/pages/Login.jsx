@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/context/AuthContext'
 import { toast } from 'sonner'
 import { API_URL } from '@/config/api'
+import { GoogleLogin } from '@react-oauth/google'
 
 export const Login = () => {
     const [username, setUsername] = useState("");
@@ -43,6 +44,33 @@ const handleSubmit = async (e) => {
     }
   };
 
+  const handleoauth = async (credentialResponse) => {
+    try {
+      const res = await fetch(`${API_URL}/api/auth/google`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          token: credentialResponse.credential
+        })
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        login(data.token, data.user.role);
+        toast.success("Login successful!");
+        navigate("/dashboard");
+      } else {
+        toast.error(data.message || "Login failed");
+      }
+
+    } catch (error) {
+      console.log(error)
+      toast.error("Something went wrong");
+
+    }
+
+  }
+
     return (<>
     
 
@@ -53,8 +81,12 @@ const handleSubmit = async (e) => {
                     <form  onSubmit={handleSubmit} className="space-y-4">
                         <Input type='text' placeholder='username' value={username} onChange={(e) => setUsername(e.target.value)} className={'p-4'} />
                         <Input type='password' placeholder='password' value={password} onChange={(e) => setPassword(e.target.value)} className={'p-4'} />
-                        <div className="flex justify-center">
+                        <div className="flex flex-col gap-4 justify-center items-center">
                             <Button type='submit' className="w-full sm:w-auto" disabled={loading}> { loading? "Logging in.." : "Login" } </Button>
+                        <GoogleLogin
+                onSuccess={(credentialResponse) => handleoauth(credentialResponse)}
+                onError={() => { console.log("error") }}
+              />
                         </div>
                         <h3 className='text-center'> Don't have an account? {""}
                             <Link to="/register" className="text-blue-600 hover:underline">
