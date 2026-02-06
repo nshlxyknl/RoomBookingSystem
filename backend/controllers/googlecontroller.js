@@ -12,6 +12,8 @@ exports.google = async (req, res) => {
       return res.status(400).json({ message: "No Google token provided" });
     }
 
+        console.log("Token starts with:", token?.slice(0, 15));
+
     const ticket = await client.verifyIdToken({
       idToken: token,
       audience: process.env.GOOGLE_CLIENT_ID,
