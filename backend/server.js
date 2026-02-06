@@ -22,7 +22,6 @@ app.get('/', (req, res) => {
   res.send('Backend is running');
 });
 
-
 const startServer = async () => {
   await mango();
 
