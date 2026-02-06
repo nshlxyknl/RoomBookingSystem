@@ -13,14 +13,19 @@ exports.google = async (req, res) => {
     }
 
         console.log("Token starts with:", token?.slice(0, 15));
+            console.log("Client ID:", process.env.GOOGLE_CLIENT_ID);
+
 
     const ticket = await client.verifyIdToken({
       idToken: token,
       audience: process.env.GOOGLE_CLIENT_ID,
     });
 
+        console.log("Ticket verified successfully");
+
     const payload = ticket.getPayload();
     const { sub, email, name } = payload;
+    console.log("Payload:", { sub, email, name });
 
     let user = await User.findOne({ googleId: sub });
 
@@ -48,6 +53,7 @@ exports.google = async (req, res) => {
 
   } catch (err) {
   console.error("Google verifyIdToken failed:", err);
-   return res.status(401).json({ message: "Google authentication failed", error: err.message });
+   return res.status(401).json({ message: "Google authentication failed", error: err.message,  details: err.toString()
+ });
   }
 };

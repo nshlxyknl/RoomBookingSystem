@@ -1,6 +1,6 @@
 const express = require(`express`)
 const router=express.Router()
-const { google } = require("../controllers/googlecontroller")
+const { google } = require("../controllers/googlecontrollers")
 
 
 router.post(`/google`,google)
