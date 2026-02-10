@@ -64,7 +64,7 @@ const handleSubmit = async (e) => {
       const data = await res.json();
 
       if (res.ok) {
-        login(data.token, data.user.role);
+        login(data.token, data.user.role, data.user.id);
         toast.success("Login successful!");
         navigate("/dashboard");
       } else {

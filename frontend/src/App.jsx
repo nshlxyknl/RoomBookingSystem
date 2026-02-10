@@ -14,7 +14,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Navbar/>
+      <Navbar />
       <Routes>
          <Route path='/' element={<PublicRoutes> <HomePage/> </PublicRoutes>}> </Route>
   <Route path='/register' element={<PublicRoutes> <Register/> </PublicRoutes> } ></Route>

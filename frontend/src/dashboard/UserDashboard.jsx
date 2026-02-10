@@ -2,6 +2,7 @@ import { AvailableCard } from '@/cards/AvailableCard'
 import { BookedCard } from '@/cards/BookedCard'
 import { useRoom } from '@/context/RoomContext'
 import { usetab } from '@/context/TabContext'
+import HeroSection from '@/pages/HeroSection'
 import React, { useEffect } from 'react'
 
 export const UserDashboard = () => {
@@ -41,7 +42,7 @@ export const UserDashboard = () => {
           <p className="text-gray-500">No booked rooms</p>
         )
       ) : (
-        <p className="text-gray-500">What do you wanna see???</p>
+        <HeroSection/>
       )
     }
   </div>

@@ -71,15 +71,11 @@ export const Navbar = () => {
   }
 
   return (
-    <div>
-
+    <>
+ { token && (
       <header className="fixed top-0 left-0  z-50  w-full  bg-white dark:bg-gray-900 shadow-md">
-        <div className=" max-w-7xl mx-auto flex justify-between items-center px-4 py-4">
-
-          {!token ? (
-            <></>
-          )
-            : (
+        <div className=" max-w-7xl mx-auto flex justify-between items-center px-4 py-4">          
+             
               <nav className="flex items-center justify-between w-full  ">
                     <div className="  text-2xl font-bold text-blue-600 shrink-0 "> 
                       MyHotel
@@ -141,12 +137,6 @@ export const Navbar = () => {
                 </div>
               </div>
             )}
-
-
-  
-
-  
-
                   </>
                   )
                     : (<>
@@ -220,9 +210,10 @@ export const Navbar = () => {
                     )
                 }
               </nav>
-            )}
         </div>
       </header>
-    </div>
-  )
+
+            )}
+            </>
+            )
 }

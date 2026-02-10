@@ -11,9 +11,7 @@ exports.google = async (req, res) => {
     if (!token) {
       return res.status(400).json({ message: "No Google token provided" });
     }
-
-        console.log("Token starts with:", token?.slice(0, 15));
-            console.log("Client ID:", process.env.GOOGLE_CLIENT_ID);
+    console.log("Token starts with:", token?.slice(0, 15));
 
 
     const ticket = await client.verifyIdToken({
@@ -21,11 +19,10 @@ exports.google = async (req, res) => {
       audience: process.env.GOOGLE_CLIENT_ID,
     });
 
-        console.log("Ticket verified successfully");
-
     const payload = ticket.getPayload();
-    const { sub, email, name } = payload;
-    console.log("Payload:", { sub, email, name });
+    const { sub, email } = payload;
+    const name = email.split("@")[0];
+
 
     let user = await User.findOne({ googleId: sub });
 
@@ -45,15 +42,13 @@ exports.google = async (req, res) => {
       { expiresIn: "7d" }
     );
 
-   return res.json({
+    res.json({
       token: jwtToken,
       user,
       needsRole: !user.role,
     });
-
   } catch (err) {
-  console.error("Google verifyIdToken failed:", err);
-   return res.status(401).json({ message: "Google authentication failed", error: err.message,  details: err.toString()
- });
+    console.error(err);
+    res.status(401).json({ message: "Google authentication failed",err });
   }
 };
