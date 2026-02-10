@@ -12,7 +12,12 @@ const app = express();
 app.use(express.json())
 
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://room-booking-system-omega.vercel.app', 'https://myroom.nischalkhanal7.com.np'],
+  origin: [
+    'http://localhost:5173', 
+    'https://room-booking-system-omega.vercel.app', 
+    'https://myroom.nischalkhanal7.com.np',
+    'https://roombookingsystem.onrender.com'
+  ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Cache-Control', 'Expires', 'Pragma']
@@ -26,6 +31,12 @@ const startServer = async () => {
   await mango();
 
   app.use("/images", express.static("public/images"));
+
+  // Add logging middleware
+  app.use((req, res, next) => {
+    console.log(`${req.method} ${req.path}`);
+    next();
+  });
 
   app.use(`/authtype`, require(`./routes/auth`))
   app.use(`/tasktype`, require(`./routes/task`))

@@ -45,23 +45,33 @@ const handleSubmit = async (e) => {
   };
 
   const handleoauth = async (credentialResponse) => {
+    setLoading(true);
     try {
       if (!credentialResponse?.credential) {
         toast.error("No Google credential received. Please try again.");
         return;
       }
 
-      console.log("Sending Google token to backend...");
+      console.log("Google OAuth Response:", {
+        hasCredential: !!credentialResponse.credential,
+        credentialLength: credentialResponse.credential?.length
+      });
       
       const res = await fetch(`${API_URL}/api/auth/google`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        credentials: 'include',
         body: JSON.stringify({
           token: credentialResponse.credential
         })
       });
       
+      console.log("Response status:", res.status);
       const data = await res.json();
+      console.log("Backend response:", data);
 
       if (res.ok) {
         login(data.token, data.user.role, data.user.id);
@@ -75,9 +85,9 @@ const handleSubmit = async (e) => {
     } catch (error) {
       console.error("OAuth error:", error);
       toast.error("Network error. Please check your connection and try again.");
-
+    } finally {
+      setLoading(false);
     }
-
   }
 
     return (<>
@@ -92,10 +102,15 @@ const handleSubmit = async (e) => {
                         <Input type='password' placeholder='password' value={password} onChange={(e) => setPassword(e.target.value)} className={'p-4'} />
                         <div className="flex flex-col gap-4 justify-center items-center">
                             <Button type='submit' className="w-full sm:w-auto" disabled={loading}> { loading? "Logging in.." : "Login" } </Button>
-                        <GoogleLogin
-                onSuccess={(credentialResponse) => handleoauth(credentialResponse)}
-                onError={() => { console.log("error") }}
-              />
+                            <GoogleLogin
+                              onSuccess={(credentialResponse) => handleoauth(credentialResponse)}
+                              onError={(error) => {
+                                console.error("Google Login Error:", error);
+                                toast.error("Google login failed. Please try again.");
+                              }}
+                              useOneTap={false}
+                              auto_select={false}
+                            />
                         </div>
                         <h3 className='text-center'> Don't have an account? {""}
                             <Link to="/register" className="text-blue-600 hover:underline">
